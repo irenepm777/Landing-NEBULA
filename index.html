@@ -1,337 +1,824 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nébula · Paisajes de ciencia ficción</title>
-  <meta name="description" content="Nébula, artista digital especializada en paisajes de ciencia ficción hechos de grano, partículas y silencio.">
-  <link rel="icon" href="assets/img/logo.webp" type="image/webp">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap">
-  <style>
-    /* ============ GUÍA DE ESTILO ============
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nébula · Paisajes de ciencia ficción</title>
+    <meta
+      name="description"
+      content="Nébula, artista digital especializada en paisajes de ciencia ficción hechos de grano, partículas y silencio."
+    />
+    <link rel="icon" href="assets/img/logo.webp" type="image/webp" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap"
+    />
+    <style>
+      /* GUÍA DE ESTILO  
        Paleta monocroma cálida:
        #141312 fondo · #1c1b19 fondo de cajas · #e9e4d8 tinta (14,9:1, AAA)
        #9c968a texto secundario (5,6:1, AA) · #3a3733 líneas
        Tipografías: Instrument Serif (títulos) + IBM Plex Mono (texto) */
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    body {
-      background-color: #141312;
-      /* textura de grano: imagen de fondo SVG con ruido al 7 % */
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
-      color: #e9e4d8;
-      font-family: "IBM Plex Mono", "Courier New", monospace;
-      font-weight: 300;
-      font-size: 0.875rem;
-      line-height: 1.65;
-    }
-    img, video { display: block; max-width: 100%; height: auto; }
-    a { color: inherit; }
-    a:hover { color: #fff; }
-    a:focus { outline: 1px solid #e9e4d8; }
+      body {
+        background-color: #141312;
+        /* textura de grano: imagen de fondo SVG con ruido al 7 % */
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
+        color: #e9e4d8;
+        font-family: "IBM Plex Mono", "Courier New", monospace;
+        font-weight: 300;
+        font-size: 0.875rem;
+        line-height: 1.65;
+      }
+      img,
+      video {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      a {
+        color: inherit;
+      }
+      a:hover {
+        color: #fff;
+      }
+      a:focus {
+        outline: 1px solid #e9e4d8;
+      }
 
-    /* ---------- piezas reutilizables ---------- */
-    .envoltorio { max-width: 1320px; margin: 0 auto; padding: 0 3.5rem; }
-    .etiqueta { font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.14em; color: #9c968a; }
-    .titulo-seccion, .hero h1, .obra h3, .contacto h2 {
-      font-family: "Instrument Serif", "Times New Roman", serif;
-      font-style: italic; font-weight: 400; text-transform: uppercase; line-height: 1;
-    }
-    .titulo-seccion { font-size: 2.2rem; }
-    .cabecera-seccion {
-      display: flex; justify-content: space-between; align-items: baseline;
-      border-bottom: 1px solid #3a3733; padding-bottom: 0.9rem; margin-bottom: 2rem;
-    }
-    .credito { font-size: 0.6875rem; color: #9c968a; margin-top: 0.6rem; line-height: 1.5; }
-    .boton {
-      display: inline-block; background-color: #e9e4d8; color: #141312; text-decoration: none;
-      font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
-      padding: 0.55rem 1rem; border: 1px solid #e9e4d8; transition: background-color 0.2s, color 0.2s;
-    }
-    .boton:hover { background-color: transparent; color: #e9e4d8; }
+      /* ---------- piezas reutilizables ---------- */
+      .envoltorio {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 0 3.5rem;
+      }
+      .etiqueta {
+        font-size: 0.6875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: #9c968a;
+      }
+      .titulo-seccion,
+      .hero h1,
+      .obra h3,
+      .contacto h2 {
+        font-family: "Instrument Serif", "Times New Roman", serif;
+        font-style: italic;
+        font-weight: 400;
+        text-transform: uppercase;
+        line-height: 1;
+      }
+      .titulo-seccion {
+        font-size: 2.2rem;
+      }
+      .cabecera-seccion {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        border-bottom: 1px solid #3a3733;
+        padding-bottom: 0.9rem;
+        margin-bottom: 2rem;
+      }
+      .credito {
+        font-size: 0.6875rem;
+        color: #9c968a;
+        margin-top: 0.6rem;
+        line-height: 1.5;
+      }
+      .boton {
+        display: inline-block;
+        background-color: #e9e4d8;
+        color: #141312;
+        text-decoration: none;
+        font-size: 0.6875rem;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 0.55rem 1rem;
+        border: 1px solid #e9e4d8;
+        transition:
+          background-color 0.2s,
+          color 0.2s;
+      }
+      .boton:hover {
+        background-color: transparent;
+        color: #e9e4d8;
+      }
 
-    /* ============ HEADER ============ */
-    .cabecera { position: sticky; top: 0; z-index: 10; background-color: #141312; border-bottom: 1px solid #3a3733; }
-    .cabecera .envoltorio { display: flex; align-items: center; justify-content: space-between; height: 60px; }
-    .marca { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
-    .marca img { width: 32px; }
-    .marca span { font-family: "Instrument Serif", serif; font-size: 1.35rem; }
-    .cabecera ul { list-style: none; display: flex; gap: 2.2rem; }
-    .cabecera nav a { text-decoration: none; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: #9c968a; }
-    .cabecera nav a:hover { color: #e9e4d8; }
+      /*   HEADER   */
+      .cabecera {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: #141312;
+        border-bottom: 1px solid #3a3733;
+      }
+      .cabecera .envoltorio {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+      }
+      .marca {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        text-decoration: none;
+      }
+      .marca img {
+        width: 32px;
+      }
+      .marca span {
+        font-family: "Instrument Serif", serif;
+        font-size: 1.35rem;
+      }
+      .cabecera ul {
+        list-style: none;
+        display: flex;
+        gap: 2.2rem;
+      }
+      .cabecera nav a {
+        text-decoration: none;
+        font-size: 0.6875rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #9c968a;
+      }
+      .cabecera nav a:hover {
+        color: #e9e4d8;
+      }
 
-    /* ============ HERO ============ */
-    .hero__marco { position: relative; }
-    .hero__marco img { width: 100%; }
-    /* el arte ocupa la mitad derecha: el texto va en el vacío de la izquierda */
-    .hero__texto { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); }
-    .hero h1 { width: 50%; font-size: 5.4rem; line-height: 0.9; margin-top: 0.6rem; }
-    .hero figcaption { display: flex; justify-content: space-between; }
+      /*   HERO   */
+      .hero__marco {
+        position: relative;
+      }
+      .hero__marco img {
+        width: 100%;
+      }
+      /* el arte ocupa la mitad derecha: el texto va en el vacío de la izquierda */
+      .hero__texto {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+      }
+      .hero h1 {
+        width: 50%;
+        font-size: 5.4rem;
+        line-height: 0.9;
+        margin-top: 0.6rem;
+      }
+      .hero figcaption {
+        display: flex;
+        justify-content: space-between;
+      }
 
-    /* ============ SOBRE MÍ ============ */
-    .sobre-mi { padding: 7rem 0; }
-    .sobre-mi .envoltorio { display: grid; grid-template-columns: 1fr 2fr; gap: 4.5rem; align-items: start; }
-    .retrato figcaption { display: flex; justify-content: space-between; letter-spacing: 0.08em; text-transform: uppercase; }
-    .sobre-mi .titulo-seccion { margin: 0.5rem 0 1.75rem; }
-    .grande { text-transform: uppercase; font-size: 1.05rem; line-height: 1.75; letter-spacing: 0.03em; }
-    .grande::first-line { color: #fff; }
-    .cuerpo { color: #9c968a; max-width: 62ch; margin-top: 1.5rem; }
-    .datos { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-top: 3rem; border-top: 1px solid #3a3733; padding-top: 1.2rem; }
-    .datos strong { display: block; font-family: "Instrument Serif", serif; font-weight: 400; font-size: 2.2rem; line-height: 1; }
+      /*   SOBRE MÍ   */
+      .sobre-mi {
+        padding: 7rem 0;
+      }
+      .sobre-mi .envoltorio {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 4.5rem;
+        align-items: start;
+      }
+      .retrato figcaption {
+        display: flex;
+        justify-content: space-between;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .sobre-mi .titulo-seccion {
+        margin: 0.5rem 0 1.75rem;
+      }
+      .grande {
+        text-transform: uppercase;
+        font-size: 1.05rem;
+        line-height: 1.75;
+        letter-spacing: 0.03em;
+      }
+      .grande::first-line {
+        color: #fff;
+      }
+      .cuerpo {
+        color: #9c968a;
+        max-width: 62ch;
+        margin-top: 1.5rem;
+      }
+      .datos {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1.5rem;
+        margin-top: 3rem;
+        border-top: 1px solid #3a3733;
+        padding-top: 1.2rem;
+      }
+      .datos strong {
+        display: block;
+        font-family: "Instrument Serif", serif;
+        font-weight: 400;
+        font-size: 2.2rem;
+        line-height: 1;
+      }
 
-    /* ============ GALERÍA ============ */
-    .galeria, .proyeccion, .sonido { padding-bottom: 7rem; }
-    .galeria__rejilla { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2.25rem 1.25rem; }
-    .obra a { display: block; overflow: hidden; }
-    .obra img { width: 100%; opacity: 0.9; transition: transform 0.6s ease, opacity 0.4s; }
-    .obra a:hover img { transform: scale(1.04); opacity: 1; }
-    .obra__num { display: flex; justify-content: space-between; font-size: 0.6875rem; color: #9c968a; margin-top: 0.9rem; }
-    .obra h3 { font-size: 1.35rem; margin: 0.2rem 0 0.3rem; }
+      /*   GALERÍA   */
+      .galeria,
+      .proyeccion,
+      .sonido {
+        padding-bottom: 7rem;
+      }
+      .galeria__rejilla {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 2.25rem 1.25rem;
+      }
+      .obra a {
+        display: block;
+        overflow: hidden;
+      }
+      .obra img {
+        width: 100%;
+        opacity: 0.9;
+        transition:
+          transform 0.6s ease,
+          opacity 0.4s;
+      }
+      .obra a:hover img {
+        transform: scale(1.04);
+        opacity: 1;
+      }
+      .obra__num {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.6875rem;
+        color: #9c968a;
+        margin-top: 0.9rem;
+      }
+      .obra h3 {
+        font-size: 1.35rem;
+        margin: 0.2rem 0 0.3rem;
+      }
 
-    /* ============ VÍDEO ============ */
-    .proyeccion__rejilla { display: grid; grid-template-columns: 1fr 2.3fr; gap: 2rem; align-items: end; }
-    .proyeccion video { width: 100%; background-color: #000; }
-    .proyeccion p { margin-bottom: 1rem; }
+      /*   VÍDEO   */
+      .proyeccion__rejilla {
+        display: grid;
+        grid-template-columns: 1fr 2.3fr;
+        gap: 2rem;
+        align-items: end;
+      }
+      .proyeccion video {
+        width: 100%;
+        background-color: #000;
+      }
+      .proyeccion p {
+        margin-bottom: 1rem;
+      }
 
-    /* ============ AUDIO ============ */
-    .sonido__caja {
-      display: grid; grid-template-columns: auto 1fr; gap: 1.5rem 2.5rem; align-items: center;
-      border: 1px solid #3a3733; background-color: #1c1b19; padding: 2.25rem;
-    }
-    .onda { display: flex; align-items: center; gap: 3px; height: 64px; }
-    .onda span { width: 3px; height: 50%; background-color: #e9e4d8; opacity: 0.75; animation: onda 1.8s ease-in-out infinite; }
-    .onda span:nth-child(3n) { height: 90%; animation-delay: -0.6s; }
-    .onda span:nth-child(3n+1) { height: 30%; animation-delay: -1.2s; }
-    @keyframes onda { 50% { transform: scale(1, 0.35); } }
-    .sonido audio { width: 100%; max-width: 520px; color-scheme: dark; }
-    .sonido p { margin-bottom: 0.9rem; }
+      /*   AUDIO   */
+      .sonido__caja {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 1.5rem 2.5rem;
+        align-items: center;
+        border: 1px solid #3a3733;
+        background-color: #1c1b19;
+        padding: 2.25rem;
+      }
+      .onda {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        height: 64px;
+      }
+      .onda span {
+        width: 3px;
+        height: 50%;
+        background-color: #e9e4d8;
+        opacity: 0.75;
+        animation: onda 1.8s ease-in-out infinite;
+      }
+      .onda span:nth-child(3n) {
+        height: 90%;
+        animation-delay: -0.6s;
+      }
+      .onda span:nth-child(3n + 1) {
+        height: 30%;
+        animation-delay: -1.2s;
+      }
+      @keyframes onda {
+        50% {
+          transform: scale(1, 0.35);
+        }
+      }
+      .sonido audio {
+        width: 100%;
+        max-width: 520px;
+        color-scheme: dark;
+      }
+      .sonido p {
+        margin-bottom: 0.9rem;
+      }
 
-    /* ============ CONTACTO ============ */
-    .contacto { border-top: 1px solid #3a3733; padding: 7rem 0; text-align: center; }
-    .contacto img { width: 80px; margin: 0 auto 1.25rem; }
-    .contacto h2 { font-size: 4.8rem; line-height: 0.92; margin-bottom: 1.25rem; }
-    .contacto p { color: #9c968a; max-width: 46ch; margin: 0 auto 2rem; }
-    .contacto .boton { padding: 0.9rem 1.6rem; }
+      /*   CONTACTO   */
+      .contacto {
+        border-top: 1px solid #3a3733;
+        padding: 7rem 0;
+        text-align: center;
+      }
+      .contacto img {
+        width: 80px;
+        margin: 0 auto 1.25rem;
+      }
+      .contacto h2 {
+        font-size: 4.8rem;
+        line-height: 0.92;
+        margin-bottom: 1.25rem;
+      }
+      .contacto p {
+        color: #9c968a;
+        max-width: 46ch;
+        margin: 0 auto 2rem;
+      }
+      .contacto .boton {
+        padding: 0.9rem 1.6rem;
+      }
 
-    /* ============ FOOTER ============ */
-    .pie { border-top: 1px solid #3a3733; padding: 2rem 0 2.5rem; font-size: 0.6875rem; color: #9c968a; }
-    .pie .envoltorio { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+      /*   FOOTER   */
+      .pie {
+        border-top: 1px solid #3a3733;
+        padding: 2rem 0 2.5rem;
+        font-size: 0.6875rem;
+        color: #9c968a;
+      }
+      .pie .envoltorio {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1rem;
+      }
 
-    /* ============ RESPONSIVE ============ */
-    @media (max-width: 960px) {
-      .envoltorio { padding: 0 2rem; }
-      .hero h1 { width: 60%; font-size: 3.6rem; }
-      .galeria__rejilla { grid-template-columns: 1fr 1fr; }
-      .proyeccion__rejilla { grid-template-columns: 1fr; }
-      .contacto h2 { font-size: 3.4rem; }
-    }
-    @media (max-width: 640px) {
-      .envoltorio { padding: 0 1rem; }
-      .cabecera nav { display: none; }
-      .hero__texto { position: static; transform: none; padding-top: 1.25rem; }
-      .hero h1 { width: 100%; font-size: 2.4rem; }
-      .hero figcaption { display: block; }
-      .sobre-mi { padding: 4rem 0; }
-      .sobre-mi .envoltorio, .galeria__rejilla, .sonido__caja { grid-template-columns: 1fr; }
-      .sobre-mi .envoltorio { gap: 2rem; }
-      .retrato { max-width: 320px; }
-      .datos { grid-template-columns: 1fr 1fr; }
-      .galeria, .proyeccion, .sonido { padding-bottom: 4rem; }
-      .sonido__caja { padding: 1.25rem; }
-      .contacto { padding: 4rem 0; }
-      .contacto h2 { font-size: 2.4rem; }
-    }
-  </style>
-</head>
-<body>
-
-  <header class="cabecera">
-    <div class="envoltorio">
-      <a class="marca" href="#inicio">
-        <img src="assets/img/logo.webp" alt="Logotipo de Nébula" width="64" height="64" loading="lazy">
-        <span>Nébula</span>
-      </a>
-      <nav>
-        <ul>
-          <li><a href="#sobre-mi">Sobre mí</a></li>
-          <li><a href="#obra">Obra</a></li>
-          <li><a href="#proyeccion">Proyección</a></li>
-          <li><a href="#sonido">Sonido</a></li>
-        </ul>
-      </nav>
-      <a class="boton" href="#contacto">Contacto</a>
-    </div>
-  </header>
-
-  <main id="inicio">
-
-    <!-- ============ HERO ============ -->
-    <section class="hero">
-      <figure>
-        <div class="hero__marco">
-          <img src="assets/img/hero-nebula.webp"
-               alt="Composición en blanco y negro de semitono: una media luna, órbitas elípticas cruzadas y un pequeño anillo central atravesados por un haz de luz horizontal, con trazos y arañazos como de grabado"
-               width="1920" height="667" loading="lazy">
-          <div class="hero__texto envoltorio">
-            <p class="etiqueta">Artista digital · Paisaje sci-fi</p>
-            <h1>Paisajes de lo que aún no existe</h1>
-          </div>
-        </div>
-        <figcaption class="credito envoltorio">
-          <span>«Light Painting in Close-up Shot» por <a href="https://www.pexels.com/photo/light-painting-in-close-up-shot-14314635/">Merlin Lightpainting</a> · Pexels · <a href="https://www.pexels.com/license/">Licencia de Pexels</a></span>
-          <span>1920 × 667 · WebP</span>
-        </figcaption>
-      </figure>
-    </section>
-
-    <!-- ============ SOBRE MÍ ============ -->
-    <section id="sobre-mi" class="sobre-mi">
+      /*   RESPONSIVE   */
+      @media (max-width: 960px) {
+        .envoltorio {
+          padding: 0 2rem;
+        }
+        .hero h1 {
+          width: 60%;
+          font-size: 3.6rem;
+        }
+        .galeria__rejilla {
+          grid-template-columns: 1fr 1fr;
+        }
+        .proyeccion__rejilla {
+          grid-template-columns: 1fr;
+        }
+        .contacto h2 {
+          font-size: 3.4rem;
+        }
+      }
+      @media (max-width: 640px) {
+        .envoltorio {
+          padding: 0 1rem;
+        }
+        .cabecera nav {
+          display: none;
+        }
+        .hero__texto {
+          position: static;
+          transform: none;
+          padding-top: 1.25rem;
+        }
+        .hero h1 {
+          width: 100%;
+          font-size: 2.4rem;
+        }
+        .hero figcaption {
+          display: block;
+        }
+        .sobre-mi {
+          padding: 4rem 0;
+        }
+        .sobre-mi .envoltorio,
+        .galeria__rejilla,
+        .sonido__caja {
+          grid-template-columns: 1fr;
+        }
+        .sobre-mi .envoltorio {
+          gap: 2rem;
+        }
+        .retrato {
+          max-width: 320px;
+        }
+        .datos {
+          grid-template-columns: 1fr 1fr;
+        }
+        .galeria,
+        .proyeccion,
+        .sonido {
+          padding-bottom: 4rem;
+        }
+        .sonido__caja {
+          padding: 1.25rem;
+        }
+        .contacto {
+          padding: 4rem 0;
+        }
+        .contacto h2 {
+          font-size: 2.4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="cabecera">
       <div class="envoltorio">
-        <figure class="retrato">
-          <img src="assets/img/retrato-nebula.webp"
-               alt="Retrato de perfil de Nébula en semitono: silueta negra con la luz marcando la frente, la nariz y los labios, rodeada de un halo de puntos"
-               width="750" height="1000" loading="lazy">
-          <figcaption class="credito"><span>«Ligero, mujer, creativo, pared» por <a href="https://www.pexels.com/es-es/foto/ligero-mujer-creativo-pared-5785454/">Diana</a> · Pexels · <a href="https://www.pexels.com/license/">Licencia de Pexels</a></span></figcaption>
-        </figure>
-        <div>
-          <p class="etiqueta">Sobre mí</p>
-          <h2 class="titulo-seccion">Trabajo con lo<br>que queda de la luz</h2>
-          <p class="grande">No pinto el espacio, lo erosiono. Mis paisajes están hechos de puntos que se encienden
-            o se apagan: órbitas que podrían ser ruinas, ciudades que se deshacen en código, soles negros
-            que tiran de todo lo que tienen alrededor. Sin color. Solo luz, grano y distancia.</p>
-          <p class="cuerpo">Empecé imprimiendo semitonos a mano, en fotocopiadoras viejas, y acabé trasladando ese
-            ruido a la pantalla. Hoy hago portadas, proyecciones para conciertos y escenografías digitales para
-            quien necesite un mundo que todavía no existe.</p>
-          <div class="datos">
-            <p><strong>6</strong><span class="etiqueta">Obras en esta selección</span></p>
-            <p><strong>2019</strong><span class="etiqueta">Primer semitono</span></p>
-            <p><strong>1</strong><span class="etiqueta">Color (y su ausencia)</span></p>
-          </div>
-        </div>
+        <a class="marca" href="#inicio">
+          <img
+            src="assets/img/logo.webp"
+            alt="Logotipo de Nébula"
+            width="64"
+            height="64"
+            loading="lazy"
+          />
+          <span>Nébula</span>
+        </a>
+        <nav>
+          <ul>
+            <li><a href="#sobre-mi">Sobre mí</a></li>
+            <li><a href="#obra">Obra</a></li>
+            <li><a href="#proyeccion">Proyección</a></li>
+            <li><a href="#sonido">Sonido</a></li>
+          </ul>
+        </nav>
+        <a class="boton" href="#contacto">Contacto</a>
       </div>
-    </section>
+    </header>
 
-    <!-- ============ GALERÍA ============ -->
-    <section id="obra" class="galeria envoltorio">
-      <div class="cabecera-seccion">
-        <h2 class="titulo-seccion">Obra seleccionada</h2>
-        <span class="etiqueta">Pulsa para ampliar</span>
-      </div>
-      <div class="galeria__rejilla">
-        <figure class="obra">
-          <a href="assets/img/galeria/01_deriva_urbana.webp">
-            <img src="assets/img/galeria/01_deriva_urbana_thumbnail.webp" alt="Explosión radial de fragmentos de edificios en blanco y negro, como si la cámara cayera a toda velocidad hacia el centro de una ciudad" width="400" height="250" loading="lazy">
-          </a>
-          <div class="obra__num"><span>01</span><span>2026</span></div>
-          <h3>Deriva urbana</h3>
-          <figcaption class="credito">«Dynamic Abstract Digital Light Burst» por <a href="https://www.pexels.com/photo/dynamic-abstract-digital-light-burst-30547579/">Pachon In Motion</a> · Pexels · <a href="https://www.pexels.com/license/">Licencia de Pexels</a></figcaption>
-        </figure>
-        <figure class="obra">
-          <a href="assets/img/galeria/02_reliquia.webp">
-            <img src="assets/img/galeria/02_reliquia_thumbnail.webp" alt="Objeto metálico en forma de cruz con extremos rematados flotando sobre un paisaje claro de dunas tramado en semitono" width="400" height="250" loading="lazy">
-          </a>
-          <div class="obra__num"><span>02</span><span>2026</span></div>
-          <h3>Reliquia</h3>
-          <figcaption class="credito">«Futuristic Spacecraft Hovering Above Clouds» por <a href="https://www.pexels.com/photo/futuristic-spacecraft-hovering-above-clouds-32232401/">Adis Resic</a> · Pexels · <a href="https://www.pexels.com/license/">Licencia de Pexels</a></figcaption>
-        </figure>
-        <figure class="obra">
-          <a href="assets/img/galeria/03_corona.webp">
-            <img src="assets/img/galeria/03_corona_thumbnail.webp" alt="Sol negro con un borde blanco brillante del que salen filamentos de luz que se estiran hacia la derecha" width="400" height="250" loading="lazy">
-          </a>
-          <div class="obra__num"><span>03</span><span>2026</span></div>
-          <h3>Corona</h3>
-          <figcaption class="credito">«Electric Light Streaks» por <a href="https://www.pexels.com/photo/electric-light-streaks-14314637/">Merlin Lightpainting</a> · Pexels · <a href="https://www.pexels.com/license/">Licencia de Pexels</a></figcaption>
-        </figure>
-        <figure class="obra">
-          <a href="assets/img/galeria/04_interfaz.webp">
-            <img src="assets/img/galeria/04_interfaz_thumbnail.webp" alt="Arcos luminosos curvados uno tras otro dentro de un corredor tecnológico oscuro lleno de circuitos" width="400" height="250" loading="lazy">
-          </a>
-          <div class="obra__num"><span>04</span><span>2026</span></div>
-          <h3>Interfaz</h3>
-          <figcaption class="credito">«Modern Illuminated Machine in Black and White» por <a href="https://www.pexels.com/photo/modern-illuminated-machine-in-black-and-white-21044343/">Kylie Miller</a> · Pexels · <a href="https://www.pexels.com/license/">Licencia de Pexels</a></figcaption>
-        </figure>
-        <figure class="obra">
-          <a href="assets/img/galeria/05_transito.webp">
-            <img src="assets/img/galeria/05_transito_thumbnail.webp" alt="Tres esferas negras alineadas atravesadas por una corriente de partículas blancas en semitono" width="400" height="250" loading="lazy">
-          </a>
-          <div class="obra__num"><span>05</span><span>2026</span></div>
-          <h3>Tránsito</h3>
-          <figcaption class="credito">«Un primer plano de un objeto con un fondo borroso» por <a href="https://unsplash.com/es/fotos/un-primer-plano-de-un-objeto-con-un-fondo-borroso-hJBexgY80cs">Steve A Johnson</a> · Unsplash · <a href="https://unsplash.com/es/licencia">Licencia de Unsplash</a></figcaption>
-        </figure>
-        <figure class="obra">
-          <a href="assets/img/galeria/06_cupula.webp">
-            <img src="assets/img/galeria/06_cupula_thumbnail.webp" alt="Vista cenital de una cúpula con nervios radiales y una retícula de paneles que convergen en un óculo central" width="400" height="250" loading="lazy">
-          </a>
-          <div class="obra__num"><span>06</span><span>2026</span></div>
-          <h3>Cúpula</h3>
-          <figcaption class="credito">«Dome in Black and White» por <a href="https://www.pexels.com/photo/dome-in-black-and-white-18180323/">Rishabh Mewada</a> · Pexels · <a href="https://www.pexels.com/license/">Licencia de Pexels</a></figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- ============ VÍDEO ============ -->
-    <section id="proyeccion" class="proyeccion envoltorio">
-      <div class="cabecera-seccion">
-        <h2 class="titulo-seccion">Proyección</h2>
-      </div>
-      <div class="proyeccion__rejilla">
-        <div>
-          <p>Un caleidoscopio en blanco y negro que se pliega sobre sí mismo sin terminar nunca. Es el tipo de
-            movimiento que uso como punto de partida para cada serie.</p>
-          <p class="etiqueta">MP4 · H.264 · sin audio</p>
-        </div>
+    <main id="inicio">
+      <!--   HERO   -->
+      <section class="hero">
         <figure>
-          <video controls muted loop preload="metadata" width="1280" height="720" poster="assets/img/poster.webp">
-            <source src="assets/video/video-nebula.mp4" type="video/mp4">
-            Tu navegador no puede reproducir vídeo HTML5. <a href="assets/video/video-nebula.mp4">Descarga el MP4</a>.
-          </video>
-          <figcaption class="credito">«Mesmerizing Black and White Kaleidoscope Loop» por <a href="https://www.pexels.com/video/mesmerizing-black-and-white-kaleidoscope-loop-33760678/">Tunnel Motions</a> · Pexels · <a href="https://www.pexels.com/license/">Licencia de Pexels</a></figcaption>
+          <div class="hero__marco">
+            <img
+              src="assets/img/hero-nebula.webp"
+              alt="Composición en blanco y negro de semitono: una media luna, órbitas elípticas cruzadas y un pequeño anillo central atravesados por un haz de luz horizontal, con trazos y arañazos como de grabado"
+              width="1920"
+              height="667"
+              loading="lazy"
+            />
+            <div class="hero__texto envoltorio">
+              <p class="etiqueta">Artista digital · Paisaje sci-fi</p>
+              <h1>Paisajes de lo que aún no existe</h1>
+            </div>
+          </div>
+          <figcaption class="credito envoltorio">
+            <span
+              >«Light Painting in Close-up Shot» por
+              <a
+                href="https://www.pexels.com/photo/light-painting-in-close-up-shot-14314635/"
+                >Merlin Lightpainting</a
+              >
+              · Pexels ·
+              <a href="https://www.pexels.com/license/"
+                >Licencia de Pexels</a
+              ></span
+            >
+            <span>1920 × 667 · WebP</span>
+          </figcaption>
         </figure>
-      </div>
-    </section>
+      </section>
 
-    <!-- ============ AUDIO ============ -->
-    <section id="sonido" class="sonido envoltorio">
-      <div class="cabecera-seccion">
-        <h2 class="titulo-seccion">Sonido</h2>
-        <span class="etiqueta">00:15 · Estéreo</span>
-      </div>
-      <figure class="sonido__caja">
-        <div class="onda">
-          <span></span><span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span><span></span>
+      <!--   SOBRE MÍ   -->
+      <section id="sobre-mi" class="sobre-mi">
+        <div class="envoltorio">
+          <figure class="retrato">
+            <img
+              src="assets/img/retrato-nebula.webp"
+              alt="Retrato de perfil de Nébula en semitono: silueta negra con la luz marcando la frente, la nariz y los labios, rodeada de un halo de puntos"
+              width="750"
+              height="1000"
+              loading="lazy"
+            />
+            <figcaption class="credito">
+              <span
+                >«Ligero, mujer, creativo, pared» por
+                <a
+                  href="https://www.pexels.com/es-es/foto/ligero-mujer-creativo-pared-5785454/"
+                  >Diana</a
+                >
+                · Pexels ·
+                <a href="https://www.pexels.com/license/"
+                  >Licencia de Pexels</a
+                ></span
+              >
+            </figcaption>
+          </figure>
+          <div>
+            <p class="etiqueta">Sobre mí</p>
+            <h2 class="titulo-seccion">
+              Trabajo con lo<br />que queda de la luz
+            </h2>
+            <p class="grande">
+              No pinto el espacio, lo erosiono. Mis paisajes están hechos de
+              puntos que se encienden o se apagan: órbitas que podrían ser
+              ruinas, ciudades que se deshacen en código, soles negros que tiran
+              de todo lo que tienen alrededor. Sin color. Solo luz, grano y
+              distancia.
+            </p>
+            <p class="cuerpo">
+              Empecé imprimiendo semitonos a mano, en fotocopiadoras viejas, y
+              acabé trasladando ese ruido a la pantalla. Hoy hago portadas,
+              proyecciones para conciertos y escenografías digitales para quien
+              necesite un mundo que todavía no existe.
+            </p>
+            <div class="datos">
+              <p>
+                <strong>6</strong
+                ><span class="etiqueta">Obras en esta selección</span>
+              </p>
+              <p>
+                <strong>2019</strong
+                ><span class="etiqueta">Primer semitono</span>
+              </p>
+              <p>
+                <strong>1</strong
+                ><span class="etiqueta">Color (y su ausencia)</span>
+              </p>
+            </div>
+          </div>
         </div>
-        <div>
-          <p>Para mirar las obras con lo que suena en mi estudio mientras trabajo. Quince segundos de
-            ambiente para escuchar con cascos.</p>
-          <audio controls preload="metadata">
-            <source src="assets/audio/audio-nebula.mp3" type="audio/mpeg">
-            Tu navegador no puede reproducir audio HTML5. <a href="assets/audio/audio-nebula.mp3">Descarga el MP3</a>.
-          </audio>
-          <figcaption class="credito">«Sci-fi Survival Dreamscape» por <a href="https://pixabay.com/es/sound-effects/pel%C3%ADculas-y-efectos-especiales-sci-fi-survival-dreamscape-6319/">freesound_community</a> · Pixabay · <a href="https://pixabay.com/es/service/license-summary/">Licencia de contenido de Pixabay</a></figcaption>
-        </div>
-      </figure>
-    </section>
+      </section>
 
-    <!-- ============ CONTACTO (CTA) ============ -->
-    <section id="contacto" class="contacto">
+      <!--   GALERÍA   -->
+      <section id="obra" class="galeria envoltorio">
+        <div class="cabecera-seccion">
+          <h2 class="titulo-seccion">Obra seleccionada</h2>
+          <span class="etiqueta">Pulsa para ampliar</span>
+        </div>
+        <div class="galeria__rejilla">
+          <figure class="obra">
+            <a href="assets/img/galeria/01_deriva_urbana.webp">
+              <img
+                src="assets/img/galeria/01_deriva_urbana_thumbnail.webp"
+                alt="Explosión radial de fragmentos de edificios en blanco y negro, como si la cámara cayera a toda velocidad hacia el centro de una ciudad"
+                width="400"
+                height="250"
+                loading="lazy"
+              />
+            </a>
+            <div class="obra__num"><span>01</span><span>2026</span></div>
+            <h3>Deriva urbana</h3>
+            <figcaption class="credito">
+              «Dynamic Abstract Digital Light Burst» por
+              <a
+                href="https://www.pexels.com/photo/dynamic-abstract-digital-light-burst-30547579/"
+                >Pachon In Motion</a
+              >
+              · Pexels ·
+              <a href="https://www.pexels.com/license/">Licencia de Pexels</a>
+            </figcaption>
+          </figure>
+          <figure class="obra">
+            <a href="assets/img/galeria/02_reliquia.webp">
+              <img
+                src="assets/img/galeria/02_reliquia_thumbnail.webp"
+                alt="Objeto metálico en forma de cruz con extremos rematados flotando sobre un paisaje claro de dunas tramado en semitono"
+                width="400"
+                height="250"
+                loading="lazy"
+              />
+            </a>
+            <div class="obra__num"><span>02</span><span>2026</span></div>
+            <h3>Reliquia</h3>
+            <figcaption class="credito">
+              «Futuristic Spacecraft Hovering Above Clouds» por
+              <a
+                href="https://www.pexels.com/photo/futuristic-spacecraft-hovering-above-clouds-32232401/"
+                >Adis Resic</a
+              >
+              · Pexels ·
+              <a href="https://www.pexels.com/license/">Licencia de Pexels</a>
+            </figcaption>
+          </figure>
+          <figure class="obra">
+            <a href="assets/img/galeria/03_corona.webp">
+              <img
+                src="assets/img/galeria/03_corona_thumbnail.webp"
+                alt="Sol negro con un borde blanco brillante del que salen filamentos de luz que se estiran hacia la derecha"
+                width="400"
+                height="250"
+                loading="lazy"
+              />
+            </a>
+            <div class="obra__num"><span>03</span><span>2026</span></div>
+            <h3>Corona</h3>
+            <figcaption class="credito">
+              «Electric Light Streaks» por
+              <a
+                href="https://www.pexels.com/photo/electric-light-streaks-14314637/"
+                >Merlin Lightpainting</a
+              >
+              · Pexels ·
+              <a href="https://www.pexels.com/license/">Licencia de Pexels</a>
+            </figcaption>
+          </figure>
+          <figure class="obra">
+            <a href="assets/img/galeria/04_interfaz.webp">
+              <img
+                src="assets/img/galeria/04_interfaz_thumbnail.webp"
+                alt="Arcos luminosos curvados uno tras otro dentro de un corredor tecnológico oscuro lleno de circuitos"
+                width="400"
+                height="250"
+                loading="lazy"
+              />
+            </a>
+            <div class="obra__num"><span>04</span><span>2026</span></div>
+            <h3>Interfaz</h3>
+            <figcaption class="credito">
+              «Modern Illuminated Machine in Black and White» por
+              <a
+                href="https://www.pexels.com/photo/modern-illuminated-machine-in-black-and-white-21044343/"
+                >Kylie Miller</a
+              >
+              · Pexels ·
+              <a href="https://www.pexels.com/license/">Licencia de Pexels</a>
+            </figcaption>
+          </figure>
+          <figure class="obra">
+            <a href="assets/img/galeria/05_transito.webp">
+              <img
+                src="assets/img/galeria/05_transito_thumbnail.webp"
+                alt="Tres esferas negras alineadas atravesadas por una corriente de partículas blancas en semitono"
+                width="400"
+                height="250"
+                loading="lazy"
+              />
+            </a>
+            <div class="obra__num"><span>05</span><span>2026</span></div>
+            <h3>Tránsito</h3>
+            <figcaption class="credito">
+              «Un primer plano de un objeto con un fondo borroso» por
+              <a
+                href="https://unsplash.com/es/fotos/un-primer-plano-de-un-objeto-con-un-fondo-borroso-hJBexgY80cs"
+                >Steve A Johnson</a
+              >
+              · Unsplash ·
+              <a href="https://unsplash.com/es/licencia"
+                >Licencia de Unsplash</a
+              >
+            </figcaption>
+          </figure>
+          <figure class="obra">
+            <a href="assets/img/galeria/06_cupula.webp">
+              <img
+                src="assets/img/galeria/06_cupula_thumbnail.webp"
+                alt="Vista cenital de una cúpula con nervios radiales y una retícula de paneles que convergen en un óculo central"
+                width="400"
+                height="250"
+                loading="lazy"
+              />
+            </a>
+            <div class="obra__num"><span>06</span><span>2026</span></div>
+            <h3>Cúpula</h3>
+            <figcaption class="credito">
+              «Dome in Black and White» por
+              <a
+                href="https://www.pexels.com/photo/dome-in-black-and-white-18180323/"
+                >Rishabh Mewada</a
+              >
+              · Pexels ·
+              <a href="https://www.pexels.com/license/">Licencia de Pexels</a>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!--   VÍDEO   -->
+      <section id="proyeccion" class="proyeccion envoltorio">
+        <div class="cabecera-seccion">
+          <h2 class="titulo-seccion">Proyección</h2>
+        </div>
+        <div class="proyeccion__rejilla">
+          <div>
+            <p>
+              Un caleidoscopio en blanco y negro que se pliega sobre sí mismo
+              sin terminar nunca. Es el tipo de movimiento que uso como punto de
+              partida para cada serie.
+            </p>
+            <p class="etiqueta">MP4 · H.264 · sin audio</p>
+          </div>
+          <figure>
+            <video
+              controls
+              muted
+              loop
+              preload="metadata"
+              width="1280"
+              height="720"
+              poster="assets/img/poster.webp"
+            >
+              <source src="assets/video/video-nebula.mp4" type="video/mp4" />
+              Tu navegador no puede reproducir vídeo HTML5.
+              <a href="assets/video/video-nebula.mp4">Descarga el MP4</a>.
+            </video>
+            <figcaption class="credito">
+              «Mesmerizing Black and White Kaleidoscope Loop» por
+              <a
+                href="https://www.pexels.com/video/mesmerizing-black-and-white-kaleidoscope-loop-33760678/"
+                >Tunnel Motions</a
+              >
+              · Pexels ·
+              <a href="https://www.pexels.com/license/">Licencia de Pexels</a>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!--   AUDIO   -->
+      <section id="sonido" class="sonido envoltorio">
+        <div class="cabecera-seccion">
+          <h2 class="titulo-seccion">Sonido</h2>
+          <span class="etiqueta">00:15 · Estéreo</span>
+        </div>
+        <figure class="sonido__caja">
+          <div class="onda">
+            <span></span><span></span><span></span><span></span><span></span
+            ><span></span> <span></span><span></span><span></span><span></span
+            ><span></span><span></span>
+          </div>
+          <div>
+            <p>
+              Para mirar las obras con lo que suena en mi estudio mientras
+              trabajo. Quince segundos de ambiente para escuchar con cascos.
+            </p>
+            <audio controls preload="metadata">
+              <source src="assets/audio/audio-nebula.mp3" type="audio/mpeg" />
+              Tu navegador no puede reproducir audio HTML5.
+              <a href="assets/audio/audio-nebula.mp3">Descarga el MP3</a>.
+            </audio>
+            <figcaption class="credito">
+              «Sci-fi Survival Dreamscape» por
+              <a
+                href="https://pixabay.com/es/sound-effects/pel%C3%ADculas-y-efectos-especiales-sci-fi-survival-dreamscape-6319/"
+                >freesound_community</a
+              >
+              · Pixabay ·
+              <a href="https://pixabay.com/es/service/license-summary/"
+                >Licencia de contenido de Pixabay</a
+              >
+            </figcaption>
+          </div>
+        </figure>
+      </section>
+
+      <!--   CONTACTO (CTA)   -->
+      <section id="contacto" class="contacto">
+        <div class="envoltorio">
+          <img
+            src="assets/img/animacion/animacion.webp"
+            alt="Animación de un sobre del que sale una estrella que late mientras un pequeño satélite lo orbita"
+            width="160"
+            height="160"
+            loading="lazy"
+          />
+          <h2>Encarga tu<br />propio horizonte</h2>
+          <p>
+            Portadas, proyecciones para conciertos, escenografías digitales.
+            Cuéntame qué mundo no existe todavía.
+          </p>
+          <a
+            class="boton"
+            href="mailto:hola@nebula-estudio.example?subject=Encargo%20para%20N%C3%A9bula"
+            >Escríbeme</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="pie">
       <div class="envoltorio">
-        <img src="assets/img/animacion/animacion.webp" alt="Animación de un sobre del que sale una estrella que late mientras un pequeño satélite lo orbita" width="160" height="160" loading="lazy">
-        <h2>Encarga tu<br>propio horizonte</h2>
-        <p>Portadas, proyecciones para conciertos, escenografías digitales. Cuéntame qué mundo no existe todavía.</p>
-        <a class="boton" href="mailto:hola@nebula-estudio.example?subject=Encargo%20para%20N%C3%A9bula">Escríbeme</a>
+        <p>
+          © 2026 Nébula · Diseño y maquetación: Irene Pascual Moreno
+        </p>
+        <p>
+          Logotipo: «Un anillo morado con fondo negro» por
+          <a
+            href="http://unsplash.com/es/fotos/un-anillo-morado-con-fondo-negro-Zw2nRt2z5f0"
+            >Maxim Landolfi</a
+          >
+          · Unsplash ·
+          <a href="https://unsplash.com/es/licencia">Licencia de Unsplash</a> ·
+          Créditos completos en el <a href="README.md">README</a>
+        </p>
       </div>
-    </section>
-
-  </main>
-
-  <footer class="pie">
-    <div class="envoltorio">
-      <p>© 2026 Nébula · Artista ficticia creada para la práctica de Diseño de Interfaces Web (DAW, iLERNA) · Diseño y maquetación: Irene Pascual Moreno</p>
-      <p>Logotipo: «Un anillo morado con fondo negro» por <a href="http://unsplash.com/es/fotos/un-anillo-morado-con-fondo-negro-Zw2nRt2z5f0">Maxim Landolfi</a> · Unsplash · <a href="https://unsplash.com/es/licencia">Licencia de Unsplash</a> · Créditos completos en el <a href="README.md">README</a></p>
-    </div>
-  </footer>
-
-</body>
+    </footer>
+  </body>
 </html>
